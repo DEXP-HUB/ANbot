@@ -1,8 +1,6 @@
 import asyncio
 import logging
 import sys
-import datetime
-import sqlite3 as sq
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message, BufferedInputFile
 from aiogram.filters import CommandStart
@@ -11,15 +9,15 @@ from Photo.read_file_in_photo import read_banner
 from keyboards import categories_button
 from Routers.keyboards_category import keyboards_category
 from Routers.sub_categories import category_participant, category_beginner
-from Routers.get_sq_date import router_sq_date
+from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
 
 bot = Bot(
-    token='',
+    token='6431806104:AAEeWUWZSODI92Va87WbUQNDrVAXdql9KKA',
     default=DefaultBotProperties(parse_mode='HTML'),
 )
 dp = Dispatcher()
-dp.include_routers(keyboards_category, category_participant, category_beginner, router_sq_date)
+dp.include_routers(keyboards_category, category_participant, category_beginner, feed_back_router)
 
 
 @dp.message(CommandStart())
@@ -27,15 +25,9 @@ async def start_bot(message: Message):
     await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
         filename='Программа АН', file=read_banner()), reply_markup=categories_button())
 
-    with sq.connect('user.db') as sq_file:
-        ms = message
-        con = sq_file.cursor()
-        time = datetime.datetime.now().strftime('%H:%M:%S')
-        con.execute('''INSERT INTO user_data (name, id, button, datatime) VALUES (?, ?, ?, ?)''',
-                    (ms.from_user.username, ms.from_user.id, ms.text, time))
-
 
 async def main():
+    await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 
 

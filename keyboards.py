@@ -6,6 +6,7 @@ def categories_button():
         [InlineKeyboardButton(text='Новичку', callback_data='get_beginner')],
         [InlineKeyboardButton(text='Участнику', callback_data='get_participant')],
         [InlineKeyboardButton(text='АН в обществе', callback_data='get_an_in_society')],
+        [InlineKeyboardButton(text='Обратная связь', callback_data='feed_back')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
