@@ -13,7 +13,7 @@ from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
 
 bot = Bot(
-    token='',
+    token='6431806104:AAEeWUWZSODI92Va87WbUQNDrVAXdql9KKA',
     default=DefaultBotProperties(parse_mode='HTML'),
 )
 dp = Dispatcher()
