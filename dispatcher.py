@@ -2,7 +2,7 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message, BufferedInputFile
+from aiogram.types import Message, BufferedInputFile, InputMediaPhoto
 from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
 from Photo.read_file_in_photo import read_banner
@@ -22,6 +22,7 @@ dp.include_routers(keyboards_category, category_participant, category_beginner, 
 
 @dp.message(CommandStart())
 async def start_bot(message: Message):
+    await message.delete()
     await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
         filename='Программа АН', file=read_banner()), reply_markup=categories_button())
 
