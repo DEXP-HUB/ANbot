@@ -1,8 +1,9 @@
 import asyncio
 import logging
 import sys
+from aiogram.fsm.context import FSMContext
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message, BufferedInputFile, InputMediaPhoto
+from aiogram.types import Message, BufferedInputFile
 from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
 from Photo.read_file_in_photo import read_banner
@@ -11,6 +12,7 @@ from Routers.keyboards_category import keyboards_category
 from Routers.sub_categories import category_participant, category_beginner
 from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
+
 
 bot = Bot(
     token='6431806104:AAEeWUWZSODI92Va87WbUQNDrVAXdql9KKA',
@@ -21,10 +23,20 @@ dp.include_routers(keyboards_category, category_participant, category_beginner, 
 
 
 @dp.message(CommandStart())
-async def start_bot(message: Message):
-    await message.delete()
-    await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
-        filename='Программа АН', file=read_banner()), reply_markup=categories_button())
+async def get_category(message: Message, state: FSMContext, bot: Bot):
+    check_state = await state.get_data()
+
+    if 'message_id' in check_state.keys():
+        await bot.delete_message(chat_id=message.chat.id, message_id=check_state['message_id'])
+        await state.clear()
+        await message.delete()
+        await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
+            filename='Программа АН', file=read_banner()), reply_markup=categories_button())
+
+    else:
+        await message.delete()
+        await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
+            filename='Программа АН', file=read_banner()), reply_markup=categories_button())
 
 
 async def main():
