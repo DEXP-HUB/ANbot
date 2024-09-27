@@ -41,3 +41,9 @@ def society_category():
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
+
+def beck_feed_back():
+    button_feed_back = [
+        [InlineKeyboardButton(text='<<Назад', callback_data="back_category")]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=button_feed_back)

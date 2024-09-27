@@ -8,8 +8,9 @@ from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
 from Photo.read_file_in_photo import read_banner
 from keyboards import categories_button
-from Routers.keyboards_category import keyboards_category
-from Routers.sub_categories import category_participant, category_beginner
+from Routers.main_category import main_category
+from Routers.category_participant import category_participant
+from Routers.category_beginner import category_beginner
 from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
 
@@ -19,7 +20,7 @@ bot = Bot(
     default=DefaultBotProperties(parse_mode='HTML'),
 )
 dp = Dispatcher()
-dp.include_routers(keyboards_category, category_participant, category_beginner, feed_back_router)
+dp.include_routers(main_category, category_participant, category_beginner, feed_back_router)
 
 
 @dp.message(CommandStart())

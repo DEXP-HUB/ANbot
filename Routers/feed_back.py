@@ -1,18 +1,15 @@
 import asyncio
 import sqlite3
 from aiogram import Router, F, Bot
-from aiogram.types import (CallbackQuery, BufferedInputFile, InputMediaPhoto, InlineKeyboardMarkup,
-                           InlineKeyboardButton, Message)
+from aiogram.types import CallbackQuery, BufferedInputFile, InputMediaPhoto, Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from Photo.read_file_in_photo import read_banner
 from TextFiles.read_files import read_what_is_an
-from keyboards import categories_button
+from keyboards import categories_button, beck_feed_back
+
 
 feed_back_router = Router()
-keyboard = InlineKeyboardMarkup(inline_keyboard=[
-    [InlineKeyboardButton(text='<<Назад', callback_data="back_category")]
-])
 
 
 class FeedBack(StatesGroup):
@@ -32,7 +29,7 @@ async def edit_feed_back(bot: Bot, state: FSMContext, message: Message):
     user_message = await state.get_data()
     await bot.edit_message_media(
         message_id=user_message['message_id'], chat_id=message.chat.id,
-        media=InputMediaPhoto(caption="Спасибо за вашу обратную связь.",
+        media=InputMediaPhoto(caption='Спасибо за ваши идеи. Мы ценим это.',
                               media=BufferedInputFile(filename='banner-2.jpg',
                                                       file=read_banner()))
     )
@@ -43,8 +40,8 @@ async def edit_feed_back(bot: Bot, state: FSMContext, message: Message):
 
 @feed_back_router.callback_query(F.data == 'feed_back')
 async def offers_update_bot(call: CallbackQuery, state: FSMContext):
-    await call.message.edit_caption(caption='Опишите ваше предложение по улучшению этого бота.',
-                                    reply_markup=keyboard)
+    await call.message.edit_caption(caption='Опишите ваши идеи по улучшению этого бота.',
+                                    reply_markup=beck_feed_back())
     await state.set_state(FeedBack.user_message)
     await state.update_data(message_id=call.message.message_id)
 
