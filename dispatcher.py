@@ -13,6 +13,7 @@ from Routers.category_participant import category_participant
 from Routers.category_beginner import category_beginner
 from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
+from DataBase.create_database import create_table
 
 
 bot = Bot(
@@ -41,6 +42,7 @@ async def get_category(message: Message, state: FSMContext, bot: Bot):
 
 
 async def main():
+    create_table()
     await bot.delete_webhook(drop_pending_updates=True)
     await dp.start_polling(bot)
 

@@ -17,7 +17,7 @@ class FeedBack(StatesGroup):
 
 
 async def write_date(message: Message):
-    with sqlite3.connect("DateBase\\feed_back.db") as write:
+    with sqlite3.connect("DataBase/feed_back.db") as write:
         user = message.from_user
         write.cursor()
         write.execute("""INSERT INTO feed_back (first_name, last_name, user_name, message_text)
