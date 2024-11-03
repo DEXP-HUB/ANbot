@@ -6,4 +6,4 @@
 6) Полученный токен вставляем в параметр token класса Bot в файле dispatcher.py
 7) Запускаем бота и тестируем его.
 
-ЕСЛИ У ВАС WINDOWS ИЛИ MAC ВОЗМОЖНО ПРИДЁТЬСЯ ЗАЙТИ В ДЕРЕКТОРИЮ TextFiles/read_files.py И ИЗМЕНИТЬ ТАМ СЛЭШИ В ФУНКЦИЯХ В КОТОРЫХ УКАЗАН ПУТЬ К ФАЙЛАМ.
+ЕСЛИ У ВАС WINDOWS ИЛИ MAC ВОЗМОЖНО ПРИДЁТСЯ ЗАЙТИ В Routers/category_beginner.py, Routers/category_participant.py, Routers/category_society.py, Routers/feed_back.py, dispatcher.py И ИЗМЕНИТЬ ТАМ СЛЭШИ В ФУНКЦИЯХ open В КОТОРЫХ УКАЗАН ПУТЬ К ФАЙЛАМ.

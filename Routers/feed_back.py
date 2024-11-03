@@ -4,7 +4,6 @@ from aiogram import Router, F, Bot
 from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from TextFiles.read_files import read_what_is_an
 from keyboards import categories_button, beck_feed_back
 
 
@@ -52,7 +51,7 @@ async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
     await bot.send_photo(
         reply_markup=categories_button(),
         photo=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
-        caption=read_what_is_an(), chat_id=message.chat.id
+        caption=open('TextFiles/what_is_an.txt', 'r').read(), chat_id=message.chat.id
     )
     await state.clear()
 
@@ -61,5 +60,5 @@ async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
 async def back_category(call: CallbackQuery, state: FSMContext):
     await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
         type='photo', media=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
-        caption=read_what_is_an()))
+        caption=open('TextFiles/what_is_an.txt', 'r').read()))
     await state.clear()

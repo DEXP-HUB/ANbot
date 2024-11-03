@@ -12,7 +12,6 @@ from Routers.category_participant import category_participant
 from Routers.category_beginner import category_beginner
 from Routers.category_society import category_society
 from Routers.feed_back import feed_back_router
-from TextFiles.read_files import read_what_is_an
 from DataBase.create_database import create_table
 
 
@@ -32,12 +31,12 @@ async def get_category(message: Message, state: FSMContext, bot: Bot):
         await bot.delete_message(chat_id=message.chat.id, message_id=check_state['message_id'])
         await state.clear()
         await message.delete()
-        await message.answer_photo(caption=read_what_is_an(), photo=FSInputFile(
+        await message.answer_photo(caption=open('TextFiles/what_is_an.txt', 'r').read(), photo=FSInputFile(
             filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
     else:
         await message.delete()
-        await message.answer_photo(caption=read_what_is_an(), photo=FSInputFile(
+        await message.answer_photo(caption=open('TextFiles/what_is_an.txt', 'r').read(), photo=FSInputFile(
             filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
 
