@@ -3,10 +3,9 @@ import logging
 import sys
 from aiogram.fsm.context import FSMContext
 from aiogram import Bot, Dispatcher
-from aiogram.types import Message, BufferedInputFile
+from aiogram.types import Message, FSInputFile
 from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
-from Photo.read_file_in_photo import read_banner
 from keyboards import categories_button
 from Routers.main_category import main_category
 from Routers.category_participant import category_participant
@@ -33,13 +32,13 @@ async def get_category(message: Message, state: FSMContext, bot: Bot):
         await bot.delete_message(chat_id=message.chat.id, message_id=check_state['message_id'])
         await state.clear()
         await message.delete()
-        await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
-            filename='Программа АН', file=read_banner()), reply_markup=categories_button())
+        await message.answer_photo(caption=read_what_is_an(), photo=FSInputFile(
+            filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
     else:
         await message.delete()
-        await message.answer_photo(caption=read_what_is_an(), photo=BufferedInputFile(
-            filename='Программа АН', file=read_banner()), reply_markup=categories_button())
+        await message.answer_photo(caption=read_what_is_an(), photo=FSInputFile(
+            filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
 
 async def main():

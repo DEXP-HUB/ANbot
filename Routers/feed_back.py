@@ -1,10 +1,9 @@
 import asyncio
 import sqlite3
 from aiogram import Router, F, Bot
-from aiogram.types import CallbackQuery, BufferedInputFile, InputMediaPhoto, Message
+from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
-from Photo.read_file_in_photo import read_banner
 from TextFiles.read_files import read_what_is_an
 from keyboards import categories_button, beck_feed_back
 
@@ -30,8 +29,8 @@ async def edit_feed_back(bot: Bot, state: FSMContext, message: Message):
     await bot.edit_message_media(
         message_id=user_message['message_id'], chat_id=message.chat.id,
         media=InputMediaPhoto(caption='Спасибо за ваши идеи. Мы ценим это.',
-                              media=BufferedInputFile(filename='banner-2.jpg',
-                                                      file=read_banner()))
+                              media=FSInputFile(filename='banner-2.jpg',
+                                                      path='Photo/banner-2.jpg'))
     )
     await asyncio.sleep(2)
     await message.delete()
@@ -52,7 +51,7 @@ async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
     await edit_feed_back(bot, state, message)
     await bot.send_photo(
         reply_markup=categories_button(),
-        photo=BufferedInputFile(filename='banner-2.jpg', file=read_banner()),
+        photo=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
         caption=read_what_is_an(), chat_id=message.chat.id
     )
     await state.clear()
@@ -61,6 +60,6 @@ async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
 @feed_back_router.callback_query(F.data == 'back_category')
 async def back_category(call: CallbackQuery, state: FSMContext):
     await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
-        type='photo', media=BufferedInputFile(file=read_banner(), filename='banner-2.jpg'),
+        type='photo', media=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
         caption=read_what_is_an()))
     await state.clear()

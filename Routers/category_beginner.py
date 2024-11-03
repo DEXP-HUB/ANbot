@@ -1,6 +1,5 @@
 from aiogram import Router, F
-from aiogram.types import CallbackQuery, InputMediaPhoto, BufferedInputFile
-from Photo.read_file_in_photo import read_banner
+from aiogram.types import CallbackQuery, InputMediaPhoto, FSInputFile
 from TextFiles.read_files import read_about_an, read_what_happens_an, read_questions_answers, read_what_is_an
 from keyboards import categories_button
 
@@ -26,6 +25,6 @@ async def questions_answers(call: CallbackQuery):
 @category_beginner.callback_query(F.data == 'categories_in_beginner')
 async def post_categories_beginner(call: CallbackQuery):
     await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
-        type='photo', media=BufferedInputFile(file=read_banner(), filename='Программа АН'),
+        type='photo', media=FSInputFile(path='Photo/banner-2.jpg', filename='banner-2.jpg'),
         caption=read_what_is_an()))
 

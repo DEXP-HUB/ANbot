@@ -1,6 +1,5 @@
 from aiogram import F, Router
-from aiogram.types import CallbackQuery, BufferedInputFile, InputMediaPhoto
-from Photo.read_file_in_photo import read_banner
+from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto
 from Requests.get_date_site import ParsingDiary
 from TextFiles.read_files import *
 from keyboards import categories_button
@@ -18,7 +17,7 @@ async def delay_planner(call: CallbackQuery):
 @category_participant.callback_query(F.data == 'categories_in_participant')
 async def post_categories_participant(call: CallbackQuery):
     await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
-        type='photo', media=BufferedInputFile(file=read_banner(), filename='Программа АН'),
+        type='photo', media=FSInputFile(path='Photo/banner-2.jpg', filename='banner-2.jpg'),
         caption=read_what_is_an()))
 
 
