@@ -29,16 +29,3 @@ async def post_categories_beginner(call: CallbackQuery):
         type='photo', media=BufferedInputFile(file=read_banner(), filename='Программа АН'),
         caption=read_what_is_an()))
 
-
-@category_beginner.callback_query(F.data == 'categories_in_participant')
-async def post_categories_participant(call: CallbackQuery):
-    await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
-        type='photo', media=BufferedInputFile(file=read_banner(), filename='Программа АН'),
-        caption=read_what_is_an()))
-
-
-@category_beginner.callback_query(F.data == 'categories_in_society')
-async def post_categories_society(call: CallbackQuery):
-    await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
-        type='photo', media=BufferedInputFile(file=read_banner(), filename='Программа АН'),
-        caption=read_what_is_an()))

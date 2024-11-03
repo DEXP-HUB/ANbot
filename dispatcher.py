@@ -11,17 +11,18 @@ from keyboards import categories_button
 from Routers.main_category import main_category
 from Routers.category_participant import category_participant
 from Routers.category_beginner import category_beginner
+from Routers.category_society import category_society
 from Routers.feed_back import feed_back_router
 from TextFiles.read_files import read_what_is_an
 from DataBase.create_database import create_table
 
 
 bot = Bot(
-    token='',
+    token='6431806104:AAEeWUWZSODI92Va87WbUQNDrVAXdql9KKA',
     default=DefaultBotProperties(parse_mode='HTML'),
 )
 dp = Dispatcher()
-dp.include_routers(main_category, category_participant, category_beginner, feed_back_router)
+dp.include_routers(main_category, category_participant, category_beginner, feed_back_router, category_society)
 
 
 @dp.message(CommandStart())

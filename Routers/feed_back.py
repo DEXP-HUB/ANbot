@@ -26,7 +26,7 @@ async def write_date(message: Message):
 
 
 async def edit_feed_back(bot: Bot, state: FSMContext, message: Message):
-    user_message = await state.get_data()
+    user_message = await state.get_data() 
     await bot.edit_message_media(
         message_id=user_message['message_id'], chat_id=message.chat.id,
         media=InputMediaPhoto(caption='Спасибо за ваши идеи. Мы ценим это.',
