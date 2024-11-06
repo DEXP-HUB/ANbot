@@ -6,6 +6,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.types import Message, FSInputFile
 from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
+from tokens import token_bot
 from keyboards import categories_button
 from Routers.main_category import main_category
 from Routers.category_participant import category_participant
@@ -15,10 +16,7 @@ from Routers.feed_back import feed_back_router
 from DataBase.create_database import create_table
 
 
-bot = Bot(
-    token='6431806104:AAEeWUWZSODI92Va87WbUQNDrVAXdql9KKA',
-    default=DefaultBotProperties(parse_mode='HTML'),
-)
+bot = Bot(token=token_bot, default=DefaultBotProperties(parse_mode='HTML'))
 dp = Dispatcher()
 dp.include_routers(main_category, category_participant, category_beginner, feed_back_router, category_society)
 

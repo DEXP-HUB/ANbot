@@ -1,4 +1,4 @@
-1) Выполнить git clone git@github.com:DEXP-HUB/ANbot.git
+1) Выполнить git clone https://github.com/DEXP-HUB/ANbot.git
 2) Создать виртуальное окружение python3 -m venv aiogram_venv 
 3) Активировать виртуальное окружение source aiogram_venv/bin/activate
 4) Установить все библиотеки pip install -r requarement.txt
