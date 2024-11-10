@@ -25,7 +25,7 @@ async def write_date(message: Message):
         write.commit()
 
 
-async def edit_feed_back(bot: Bot, state: FSMContext, message: Message):
+async def edit_feed_back(bot: Bot, message: Message, state: FSMContext):
     user_message = await state.get_data() 
     await bot.edit_message_media(
         message_id=user_message['message_id'], chat_id=message.chat.id,
@@ -58,7 +58,7 @@ async def message_not_text(message: Message, state: FSMContext, bot: Bot):
                 media=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg')
                 )
             )
-        await message.delete()
+        await message.delete()   
     except TelegramBadRequest:
         await message.delete()
 
@@ -66,7 +66,7 @@ async def message_not_text(message: Message, state: FSMContext, bot: Bot):
 @feed_back_router.message(and_f(FeedBack.user_message, F.text))
 async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
     await write_date(message)
-    await edit_feed_back(bot, state, message)
+    await edit_feed_back(bot, message, state)
     await bot.send_photo(
         reply_markup=categories_button(),
         caption=open('TextFiles/what_is_an.txt', 'r').read(), chat_id=message.chat.id,
@@ -84,6 +84,5 @@ async def back_category(call: CallbackQuery, state: FSMContext):
                 caption=open('TextFiles/what_is_an.txt', 'r').read(),
                 media=FSInputFile(
                     filename='banner-2.jpg', 
-                    path='Photo/banner-2.jpg',))
-            )
+                    path='Photo/banner-2.jpg')))
     await state.clear()
