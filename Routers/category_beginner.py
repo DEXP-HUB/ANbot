@@ -9,6 +9,8 @@ category_beginner = Router()
 @category_beginner.callback_query(F.data == 'get_about_an')
 async def about_an(call: CallbackQuery):
     await call.message.answer(text=open('TextFiles/about_an.txt', 'r').read())
+    await call.answer(text=212341)
+
 
 
 @category_beginner.callback_query(F.data == 'get_what_happens_an')
