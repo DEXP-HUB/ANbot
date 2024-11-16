@@ -1,5 +1,5 @@
 import asyncio
-import sqlite3
+from sqlalchemy.orm import Session
 from aiogram.filters import and_f, invert_f
 from aiogram import Router, F, Bot
 from aiogram.exceptions import TelegramBadRequest
@@ -7,6 +7,8 @@ from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto, Message
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from keyboards import categories_button, beck_feed_back
+from DataBase.feed_back_model import UserFeedBack, engine
+
 
 
 feed_back_router = Router()
@@ -17,12 +19,15 @@ class FeedBack(StatesGroup):
 
 
 async def write_date(message: Message):
-    with sqlite3.connect("DataBase/feed_back.db") as write:
-        user = message.from_user
-        write.cursor()
-        write.execute("""INSERT INTO feed_back (first_name, last_name, user_name, message_text)
-        VALUES (?, ?, ?, ?)""", (user.first_name, user.last_name, user.username, message.text))
-        write.commit()
+    with Session(engine) as session:
+        feed_back = UserFeedBack(
+            first_name=message.from_user.first_name,
+            last_name=message.from_user.last_name,
+            url_name=message.from_user.username,
+            message_text=message.text
+        )
+        session.add(feed_back)
+        session.commit()
 
 
 async def edit_feed_back(bot: Bot, message: Message, state: FSMContext):
