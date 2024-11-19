@@ -26,7 +26,7 @@ async def get_category(message: Message):
     await message.answer_photo(caption=open('TextFiles/what_is_an.txt', 'r').read(), photo=FSInputFile(
             filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
-
+        
 async def main():
     Base.metadata.create_all(engine)
     await bot.delete_webhook(drop_pending_updates=True)

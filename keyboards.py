@@ -1,7 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
 
 
-def categories_button():
+def categories_button() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
         [InlineKeyboardButton(text='Новичку', callback_data='get_beginner')],
         [InlineKeyboardButton(text='Участнику', callback_data='get_participant')],
@@ -11,7 +11,7 @@ def categories_button():
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def beginner_category():
+def beginner_category() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
         [InlineKeyboardButton(text='О сообществе «Анонимные Наркоманы»', callback_data='get_about_an')],
         [InlineKeyboardButton(text='Что происходит на собраниях АН', callback_data='get_what_happens_an')],
@@ -23,7 +23,7 @@ def beginner_category():
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def participant_category():
+def participant_category() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
         [InlineKeyboardButton(text='Собрания сегодня', web_app=WebAppInfo(url='https://na-msk.ru/schedule-member/'))],
         [InlineKeyboardButton(text='Ежедневник', callback_data='get_dilay_planner')],
@@ -33,7 +33,7 @@ def participant_category():
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def society_category():
+def society_category() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
         [InlineKeyboardButton(text='О сообществе «Анонимные Наркоманы»', callback_data='get_about_an')],
         [InlineKeyboardButton(text='Открытые собрания', web_app=WebAppInfo(url='https://na-msk.ru/schedule-pro/'))],
@@ -42,8 +42,21 @@ def society_category():
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def beck_feed_back():
+def beck_feed_back() -> InlineKeyboardMarkup:
     button_feed_back = [
         [InlineKeyboardButton(text='<<Назад', callback_data="back_category")]
     ]
     return InlineKeyboardMarkup(inline_keyboard=button_feed_back)
+
+
+def about_an_buttons() -> InlineKeyboardMarkup:
+    inline_keyboard_list = [
+        [InlineKeyboardButton(text='Сообщество', callback_data='community_an'), 
+         InlineKeyboardButton(text='Цель', callback_data='target_an')],
+        [InlineKeyboardButton(text='Участие', callback_data='participation_an'), 
+         InlineKeyboardButton(text='Собрания', callback_data='meetings_an')],
+        [InlineKeyboardButton(text='Программа', callback_data='program_an'), 
+         InlineKeyboardButton(text='Религия', callback_data='religion_an')],
+        [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
