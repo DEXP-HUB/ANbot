@@ -60,3 +60,14 @@ def about_an_buttons() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
+
+
+def questions_answers_button() -> InlineKeyboardMarkup:
+    inline_keyboard_list = [
+        [InlineKeyboardButton(text='Как работает программа?', callback_data='job_program'), 
+         InlineKeyboardButton(text='Точно бесплатно?', callback_data='program_free')],
+        [InlineKeyboardButton(text='Почему собрания в храмах и наркодиспансерах?', callback_data='meetings')],
+        [InlineKeyboardButton(text='Можете меня проводить, я боюсь потеряться?', callback_data='help_go')],
+        [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)

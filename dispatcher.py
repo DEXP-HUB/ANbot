@@ -3,7 +3,7 @@ import logging
 import sys
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message, FSInputFile
-from aiogram.filters import CommandStart, Command
+from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
 from filters import CheckState
 from tokens import token_bot
@@ -23,6 +23,7 @@ dp.include_routers(main_category, category_participant, category_beginner, feed_
 
 @dp.message(CommandStart(), CheckState())
 async def get_category(message: Message):
+    await message.delete()
     await message.answer_photo(caption=open('TextFiles/what_is_an.txt', 'r').read(), photo=FSInputFile(
             filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
