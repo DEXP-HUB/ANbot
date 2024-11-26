@@ -35,7 +35,7 @@ def participant_category() -> InlineKeyboardMarkup:
 
 def society_category() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
-        [InlineKeyboardButton(text='О сообществе «Анонимные Наркоманы»', callback_data='get_about_an')],
+        [InlineKeyboardButton(text='О сообществе «Анонимные Наркоманы»', callback_data='get_about_an_in_society')],
         [InlineKeyboardButton(text='Открытые собрания', web_app=WebAppInfo(url='https://na-msk.ru/schedule-pro/'))],
         [InlineKeyboardButton(text='<<Назад', callback_data='categories_in_society')],
     ]
@@ -44,7 +44,7 @@ def society_category() -> InlineKeyboardMarkup:
 
 def beck_feed_back() -> InlineKeyboardMarkup:
     button_feed_back = [
-        [InlineKeyboardButton(text='<<Назад', callback_data="back_category")]
+        [InlineKeyboardButton(text='<<Назад', callback_data='back_category')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=button_feed_back)
 
@@ -57,7 +57,20 @@ def about_an_buttons() -> InlineKeyboardMarkup:
          InlineKeyboardButton(text='Собрания', callback_data='meetings_an')],
         [InlineKeyboardButton(text='Программа', callback_data='program_an'), 
          InlineKeyboardButton(text='Религия', callback_data='religion_an')],
-        [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
+        [InlineKeyboardButton(text='<<Назад', callback_data='back_about_an')]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
+
+
+def about_an_in_society_buttons() -> InlineKeyboardMarkup:
+    inline_keyboard_list = [
+        [InlineKeyboardButton(text='Сообщество', callback_data='community_an'), 
+         InlineKeyboardButton(text='Цель', callback_data='target_an')],
+        [InlineKeyboardButton(text='Участие', callback_data='participation_an'), 
+         InlineKeyboardButton(text='Собрания', callback_data='meetings_an')],
+        [InlineKeyboardButton(text='Программа', callback_data='program_an'), 
+         InlineKeyboardButton(text='Религия', callback_data='religion_an')],
+        [InlineKeyboardButton(text='<<Назад', callback_data='back_about_an_society')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
@@ -71,3 +84,14 @@ def questions_answers_button() -> InlineKeyboardMarkup:
         [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
+
+
+# def what_happens_buttons() -> InlineKeyboardMarkup:
+#     inline_keyboard_list = [
+#         [InlineKeyboardButton(text='Собрания АН...', callback_data='about_meetings'), 
+#          InlineKeyboardButton(text='Нас не интересует...', callback_data='program_free')],
+#         [InlineKeyboardButton(text='Из уважения к анонимности...', callback_data='meetings')],
+#         [InlineKeyboardButton(text='', callback_data='help_go')],
+#         [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
+#     ]
+#     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
