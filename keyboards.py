@@ -14,7 +14,7 @@ def categories_button() -> InlineKeyboardMarkup:
 def beginner_category() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
         [InlineKeyboardButton(text='О сообществе «Анонимные Наркоманы»', callback_data='get_about_an')],
-        [InlineKeyboardButton(text='Что происходит на собраниях АН', callback_data='get_what_happens_an')],
+        [InlineKeyboardButton(text='Что происходит на собраниях АН', callback_data='what_happens_an_page1')],
         [InlineKeyboardButton(text='Вопросы и ответы', callback_data='get_questions_answers')],
         [InlineKeyboardButton(text='Собрания сегодня', web_app=WebAppInfo(url='https://na-msk.ru/schedule-new/'))],
         [InlineKeyboardButton(text='Информация для родственников', web_app=WebAppInfo(url='https://na-msk.ru/info-adults/'))],
@@ -86,12 +86,10 @@ def questions_answers_button() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-# def what_happens_buttons() -> InlineKeyboardMarkup:
-#     inline_keyboard_list = [
-#         [InlineKeyboardButton(text='Собрания АН...', callback_data='about_meetings'), 
-#          InlineKeyboardButton(text='Нас не интересует...', callback_data='program_free')],
-#         [InlineKeyboardButton(text='Из уважения к анонимности...', callback_data='meetings')],
-#         [InlineKeyboardButton(text='', callback_data='help_go')],
-#         [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
-#     ]
-#     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
+def what_happens_buttons() -> InlineKeyboardMarkup:
+    inline_keyboard_list = [
+        [InlineKeyboardButton(text='<<', callback_data='what_happens_an_page1'), 
+         InlineKeyboardButton(text='>>', callback_data='what_happens_an_page2')],
+        [InlineKeyboardButton(text='<<Назад', callback_data='get_beginner')]
+    ]
+    return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)

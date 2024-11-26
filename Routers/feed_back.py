@@ -31,12 +31,14 @@ async def write_date(message: Message):
 
 
 async def edit_feed_back(bot: Bot, message: Message, state: FSMContext):
-    user_message = await state.get_data() 
+    user_message = await state.get_data()
+
     await bot.edit_message_media(
         message_id=user_message['message_id'], chat_id=message.chat.id,
         media=InputMediaPhoto(caption='Спасибо за ваши идеи. Мы ценим это.', 
         media=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'))
         )
+    
     await asyncio.sleep(2)
     await message.delete()
     await bot.delete_message(chat_id=message.chat.id, message_id=user_message['message_id'])
@@ -46,14 +48,16 @@ async def edit_feed_back(bot: Bot, message: Message, state: FSMContext):
 async def offers_update_bot(call: CallbackQuery, state: FSMContext):
     await call.message.edit_caption(caption='Опишите ваши идеи по улучшению этого бота.', 
                                     reply_markup=beck_feed_back())
+    
     await state.set_state(FeedBack.user_message)
     await state.update_data(message_id=call.message.message_id)
 
 
 @feed_back_router.message(and_f(FeedBack.user_message, invert_f(F.text)))
 async def message_not_text(message: Message, state: FSMContext, bot: Bot):
+    user_message = await state.get_data()
+
     try:
-        user_message = await state.get_data()
         await bot.edit_message_media(
             chat_id=message.chat.id,
             reply_markup=beck_feed_back(),
@@ -63,7 +67,8 @@ async def message_not_text(message: Message, state: FSMContext, bot: Bot):
                 media=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg')
                 )
             )
-        await message.delete()   
+        await message.delete()
+
     except TelegramBadRequest:
         await message.delete()
 
@@ -72,11 +77,13 @@ async def message_not_text(message: Message, state: FSMContext, bot: Bot):
 async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
     await write_date(message)
     await edit_feed_back(bot, message, state)
+
     await bot.send_photo(
         reply_markup=categories_button(),
         caption=open('TextFiles/what_is_an.txt', 'r').read(), chat_id=message.chat.id,
         photo=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
     )
+
     await state.clear()
 
 
@@ -90,4 +97,5 @@ async def back_category(call: CallbackQuery, state: FSMContext):
                 media=FSInputFile(
                     filename='banner-2.jpg', 
                     path='Photo/banner-2.jpg')))
+    
     await state.clear()

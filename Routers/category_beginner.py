@@ -1,7 +1,9 @@
 from aiogram import Router, F
 from aiogram.filters import or_f
 from aiogram.types import CallbackQuery, InputMediaPhoto, FSInputFile
-from keyboards import categories_button, about_an_buttons, questions_answers_button, society_category, beginner_category
+from aiogram.exceptions import TelegramBadRequest
+from keyboards import (categories_button, about_an_buttons, questions_answers_button,
+                        society_category, beginner_category, what_happens_buttons)
 
 
 category_beginner = Router()
@@ -12,6 +14,7 @@ async def beginner_or_society(call: CallbackQuery) -> tuple:
                ' информацию o возможности выздоровления тем, кто еще употребляет наркотики и страдает от зависимости.',
                'Наша политика в связях с общественностью строится не на рекламе, а на привлекательности; нам нужно'
                ' всегда сохранять личную анонимность на уровне средств массовой информации.')
+    
     return {'back_about_an': (beginner_category(), caption[0]), 
             'back_about_an_society': (society_category(), caption[1])}[call.data]
 
@@ -28,6 +31,7 @@ async def category_about_an(call: CallbackQuery):
     text = open(file='TextFiles/about_an.txt', mode='r').read().split('\n')
     category = {'community_an': text[2], 'target_an': text[6], 'participation_an': text[10],
                 'meetings_an': text[14], 'program_an': text[18], 'religion_an': text[22]}
+    
     await call.message.edit_caption(reply_markup=about_an_buttons(), caption=category[call.data])
 
 
@@ -47,13 +51,20 @@ async def questions_answers(call: CallbackQuery):
 async def category_questions_answers(call: CallbackQuery):
     text = open(file='TextFiles/questions_answers.txt', mode='r').read().split('\n')
     category = {'job_program': text[2], 'program_free': text[6], 'meetings': text[10], 'help_go': text[14]}
+
     await call.message.edit_caption(reply_markup=questions_answers_button(), caption=category[call.data])
 
 
-@category_beginner.callback_query(F.data == 'get_what_happens_an')
+@category_beginner.callback_query(or_f(F.data == 'what_happens_an_page1', F.data == 'what_happens_an_page2'))
 async def what_happens_an(call: CallbackQuery):
-    await call.message.edit_caption(caption=open('TextFiles/what_happens_an.txt', 'r').read())
-    # await call.message.answer(text=open('TextFiles/what_happens_an.txt', 'r').read())
+    caption = open('TextFiles/what_happens_an.txt', 'r').read()
+    page = {'what_happens_an_page1': caption[0:995], 'what_happens_an_page2': caption[995:]}
+
+    try:
+        await call.message.edit_caption(reply_markup=what_happens_buttons(), caption=page[call.data])
+        
+    except TelegramBadRequest:
+        pass
 
 
 @category_beginner.callback_query(F.data == 'categories_in_beginner')
