@@ -62,15 +62,15 @@ def about_an_buttons() -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def about_an_in_society_buttons() -> InlineKeyboardMarkup:
+def about_an_sc_buttons() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
-        [InlineKeyboardButton(text='Сообщество', callback_data='community_an'), 
-         InlineKeyboardButton(text='Цель', callback_data='target_an')],
-        [InlineKeyboardButton(text='Участие', callback_data='participation_an'), 
-         InlineKeyboardButton(text='Собрания', callback_data='meetings_an')],
-        [InlineKeyboardButton(text='Программа', callback_data='program_an'), 
-         InlineKeyboardButton(text='Религия', callback_data='religion_an')],
-        [InlineKeyboardButton(text='<<Назад', callback_data='back_about_an_society')]
+        [InlineKeyboardButton(text='Сообщество', callback_data='community_an_sc'), 
+         InlineKeyboardButton(text='Цель', callback_data='target_an_sc')],
+        [InlineKeyboardButton(text='Участие', callback_data='participation_an_sc'), 
+         InlineKeyboardButton(text='Собрания', callback_data='meetings_an_sc')],
+        [InlineKeyboardButton(text='Программа', callback_data='program_an_sc'), 
+         InlineKeyboardButton(text='Религия', callback_data='religion_an_sc')],
+        [InlineKeyboardButton(text='<<Назад', callback_data='back_about_an_sc')]
     ]
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
