@@ -10,6 +10,5 @@ class CheckState(Filter):
         if not self.message_id.get('message_id') is None:
             await bot.delete_message(chat_id=message.chat.id, message_id=self.message_id['message_id'])
             state.get_state().close()
-            await message.delete()
         return True
         
