@@ -11,7 +11,7 @@ category_beginner = Router()
 
 @category_beginner.callback_query(F.data == 'get_about_an')
 async def about_an(call: CallbackQuery):
-    await call.message.edit_reply_markup(reply_markup=about_an_buttons())
+    await call.message.edit_reply_markup(reply_markup=about_an_buttons(back_button='back_about_an'))
 
 
 @category_beginner.callback_query(or_f(F.data == 'community_an', F.data == 'target_an', F.data == 'participation_an',
@@ -20,7 +20,8 @@ async def category_about_an(call: CallbackQuery):
     text = open(file='TextFiles/about_an.txt', mode='r').read().split('\n')
     category = {'community_an': text[2], 'target_an': text[6], 'participation_an': text[10],
                 'meetings_an': text[14], 'program_an': text[18], 'religion_an': text[22]}
-    await call.message.edit_caption(reply_markup=about_an_buttons(), caption=category[call.data])
+    
+    await call.message.edit_caption(reply_markup=call.message.reply_markup, caption=category[call.data])
 
 
 @category_beginner.callback_query(F.data == 'back_about_an')
