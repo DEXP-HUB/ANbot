@@ -1,12 +1,19 @@
 from aiogram import Router, F
 from aiogram.filters import or_f
-from aiogram.types import CallbackQuery, InputMediaPhoto, FSInputFile
+from aiogram.filters.exception import ExceptionTypeFilter
+from aiogram.types import CallbackQuery, InputMediaPhoto, FSInputFile, Message
+from aiogram.types.error_event import ErrorEvent
 from aiogram.exceptions import TelegramBadRequest
 from keyboards import (categories_button, about_an_buttons, questions_answers_button,
                        beginner_category, what_happens_buttons)
 
 
 category_beginner = Router()
+
+
+@category_beginner.error(ExceptionTypeFilter(TelegramBadRequest))
+async def request_error(event: ErrorEvent):
+    pass
 
 
 @category_beginner.callback_query(F.data == 'get_about_an')
@@ -52,12 +59,8 @@ async def what_happens_an(call: CallbackQuery):
     caption = open(file='TextFiles/what_happens_an.txt', mode='r').read()
     page = {'what_happens_an_page1': caption[0:995], 'what_happens_an_page2': caption[995:]}
 
-    try:
-        await call.message.edit_caption(reply_markup=what_happens_buttons(), caption=page[call.data])
+    await call.message.edit_caption(reply_markup=what_happens_buttons(), caption=page[call.data])
         
-    except TelegramBadRequest:
-        pass
-
 
 @category_beginner.callback_query(F.data == 'categories_in_beginner')
 async def post_categories_beginner(call: CallbackQuery):

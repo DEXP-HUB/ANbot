@@ -1,9 +1,5 @@
 from aiogram.types import InlineKeyboardButton as Button
 from aiogram.types import InlineKeyboardMarkup, WebAppInfo
-from aiogram.exceptions import TelegramBadRequest
-
-
-
 
 
 def categories_button() -> InlineKeyboardMarkup:
