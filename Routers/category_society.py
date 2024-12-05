@@ -1,8 +1,6 @@
 from aiogram import Router, F
-from aiogram.filters import or_f
 from aiogram.types import CallbackQuery, InputMediaPhoto, FSInputFile
 from keyboards import categories_button, about_an_buttons, society_category
-from aiogram.exceptions import TelegramBadRequest
 
 
 category_society = Router()

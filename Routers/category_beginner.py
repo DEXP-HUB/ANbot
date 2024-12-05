@@ -11,9 +11,9 @@ from keyboards import (categories_button, about_an_buttons, questions_answers_bu
 category_beginner = Router()
 
 
-@category_beginner.error(ExceptionTypeFilter(TelegramBadRequest))
-async def request_error(event: ErrorEvent):
-    pass
+# @category_beginner.error(ExceptionTypeFilter(TelegramBadRequest))
+# async def request_error(event: ErrorEvent):
+#     pass
 
 
 @category_beginner.callback_query(F.data == 'get_about_an')
