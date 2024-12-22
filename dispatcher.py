@@ -31,6 +31,7 @@ async def get_category(message: Message):
 async def main():
     Base.metadata.create_all(engine)
     await bot.delete_webhook(drop_pending_updates=True)
+    await bot.set_my_description(language_code='ru', description='Здравствуйте, этот телеграм-бот предназначен для того, чтобы помочь людям избавиться от наркотической зависимости. Через этого бота вы сможете узнать подробнее о сообществе "Анонимные Наркоманы".')
     await dp.start_polling(bot)
 
 
