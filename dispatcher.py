@@ -1,6 +1,7 @@
 import asyncio
 import logging
 import sys
+from os.path import join as path
 from aiogram import Bot, Dispatcher
 from aiogram.types import Message, FSInputFile
 from aiogram.filters import CommandStart
@@ -24,7 +25,7 @@ dp.include_routers(main_category, category_participant, category_beginner, feed_
 @dp.message(CommandStart(), CheckState())
 async def get_category(message: Message):
     await message.delete()
-    await message.answer_photo(caption=open('TextFiles/what_is_an.txt', 'r').read(), photo=FSInputFile(
+    await message.answer_photo(caption=open(path('TextFiles', 'what_is_an.txt'), 'r').read(), photo=FSInputFile(
             filename='banner-2.jpg', path='Photo/banner-2.jpg'), reply_markup=categories_button())
 
         

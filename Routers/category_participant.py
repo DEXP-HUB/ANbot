@@ -1,4 +1,5 @@
 from typing import Tuple
+from os.path import join as path
 from aiogram import F, Router
 from aiogram.filters import or_f
 from aiogram.types import CallbackQuery, FSInputFile, InputMediaPhoto
@@ -11,9 +12,9 @@ category_participant = Router()
 
 async def get_path(dir: str, call_data: str) -> Tuple[str, int]:
     return {
-        'steps_an': (f'{dir}/twelve_steps_an.txt', 620), 
-        'tradition_an': (f'{dir}/twelve_tradition_an.txt', 996),
-        'service_concepts': (f'{dir}/twelve_ministries_an.txt', 925)
+        'steps_an': (path(dir, 'twelve_steps_an.txt'), 620), 
+        'tradition_an': (path(dir, 'twelve_tradition_an.txt'), 996),
+        'service_concepts': (path(dir, 'twelve_ministries_an.txt'), 925)
         }[call_data]
 
 
@@ -27,7 +28,7 @@ async def delay_planner(call: CallbackQuery):
 async def post_categories_participant(call: CallbackQuery):
     await call.message.edit_media(reply_markup=categories_button(), media=InputMediaPhoto(
         type='photo', media=FSInputFile(path='Photo/banner-2.jpg', filename='banner-2.jpg'),
-        caption=open('TextFiles/what_is_an.txt', 'r').read()))
+        caption=open(path('TextFiles', 'what_is_an.txt'), 'r').read()))
 
 
 @category_participant.callback_query(F.data == 'get_community_principles')

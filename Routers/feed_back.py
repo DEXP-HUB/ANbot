@@ -1,4 +1,5 @@
 import asyncio
+from os.path import join as path
 from sqlalchemy.orm import Session
 from aiogram.filters import and_f, invert_f
 from aiogram import Router, F, Bot
@@ -80,7 +81,7 @@ async def working_on_answer(message: Message, state: FSMContext, bot: Bot):
 
     await bot.send_photo(
         reply_markup=categories_button(),
-        caption=open('TextFiles/what_is_an.txt', 'r').read(), chat_id=message.chat.id,
+        caption=open(path('TextFiles', 'what_is_an.txt'), 'r').read(), chat_id=message.chat.id,
         photo=FSInputFile(filename='banner-2.jpg', path='Photo/banner-2.jpg'),
     )
 
@@ -93,7 +94,7 @@ async def back_category(call: CallbackQuery, state: FSMContext):
             reply_markup=categories_button(), 
             media=InputMediaPhoto(
                 type='photo', 
-                caption=open('TextFiles/what_is_an.txt', 'r').read(),
+                caption=open(path('TextFiles', 'what_is_an.txt'), 'r').read(),
                 media=FSInputFile(
                     filename='banner-2.jpg', 
                     path='Photo/banner-2.jpg')))
