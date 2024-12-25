@@ -1,4 +1,5 @@
 from typing import Tuple
+from abc import ABC, abstractmethod
 from os.path import join as path
 from aiogram import F, Router
 from aiogram.filters import or_f
@@ -10,12 +11,24 @@ from keyboards import categories_button, principles_community, get_page
 category_participant = Router()
 
 
-async def get_path(dir: str, call_data: str) -> Tuple[str, int]:
-    return {
-        'steps_an': (path(dir, 'twelve_steps_an.txt'), 620), 
-        'tradition_an': (path(dir, 'twelve_tradition_an.txt'), 996),
-        'service_concepts': (path(dir, 'twelve_ministries_an.txt'), 925)
-        }[call_data]
+class PrinciplesCommunity(ABC):
+    @abstractmethod
+    async def __call__(self):
+        pass
+
+class StepsAN(PrinciplesCommunity):
+    async def __call__(self) -> Tuple[str, int]:
+        return path('TextFiles', 'twelve_steps_an.txt'), 620
+    
+
+class TraditionAN(PrinciplesCommunity):
+    async def __call__(self) -> Tuple[str, int]:
+        return path('TextFiles', 'twelve_tradition_an.txt'), 996
+
+
+class MinistriesAn(PrinciplesCommunity):
+    async def __call__(self) -> Tuple[str, int]:
+        return path('TextFiles', 'twelve_ministries_an.txt'), 925
 
 
 @category_participant.callback_query(F.data == 'get_dilay_planner')
@@ -44,13 +57,20 @@ async def community_principles(call: CallbackQuery):
                                           F.data == 'steps_an2', F.data == 'tradition_an2', 
                                           F.data == 'service_concepts2'))
 async def categories_principles(call: CallbackQuery):
-    path, limit = await get_path('TextFiles', call.data[:-1])
-    read_file = lambda path: open(path, 'r').read()
-    caption = {'1': read_file(path)[:limit], '2': read_file(path)[limit:]}
+    principles = {
+        'steps_an': StepsAN(), 
+        'tradition_an': TraditionAN(), 
+        'service_concepts': MinistriesAn()
+        }
+    
+    text, limit = await principles[call.data[:-1]]()
 
     await call.message.edit_caption(
-            caption=caption[call.data[-1]],
-            reply_markup=get_page(call.data[:-1])
+            caption = {
+                '1': open(text, 'r').read()[:limit], 
+                '2': open(text, 'r').read()[limit:]
+                }[call.data[-1]],
+            reply_markup = get_page(call.data[:-1])
             )
     
    
