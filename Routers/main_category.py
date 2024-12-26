@@ -1,7 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
 from aiogram.types import InputMediaPhoto, FSInputFile
-from keyboards import beginner_category, participant_category, society_category
+from templates_messages import GetBeginner, GetParticipant, GetSociety
 
 
 main_category = Router()
@@ -9,23 +9,21 @@ main_category = Router()
 
 @main_category.callback_query(F.data == 'get_beginner')
 async def send_beginner_category(call: CallbackQuery):
-    await call.message.edit_media(reply_markup=beginner_category(), media=InputMediaPhoto(
-        type='photo', media=FSInputFile(path='Photo/beginner.jpg', filename='beginner.jpg'),
-        caption='У каждой группы сообщества «Анонимные Наркоманы» есть лишь одна главная цель — предоставить информацию'
-                ' о возможности выздоровления тем, кто еще употребляет наркотики и страдает от зависимости.'))
+    await call.message.edit_media(reply_markup=GetBeginner.MARKUP, media=InputMediaPhoto(
+        type=GetBeginner.MEDIA_TYPE, media=FSInputFile(path=GetBeginner.PHOTO_PATH, filename=GetBeginner.PHOTO_NAME),
+        caption=GetBeginner.CAPTION))
 
 
 @main_category.callback_query(F.data == 'get_participant')
 async def send_participant_category(call: CallbackQuery):
-    await call.message.edit_media(reply_markup=participant_category(), media=InputMediaPhoto(
-        type='photo', media=FSInputFile(path='Photo/participant.jpg', filename='participant.jpg'),
-        caption='Наше общее благополучие важнее всего, от единства АН зависит личное выздоровление каждого.'))
+    await call.message.edit_media(reply_markup=GetParticipant.MARKUP, media=InputMediaPhoto(
+        type=GetParticipant.MEDIA_TYPE, media=FSInputFile(path=GetParticipant.PHOTO_PATH, filename=GetParticipant.PHOTO_NAME),
+        caption=GetParticipant.CAPTION))
 
 
 @main_category.callback_query(F.data == 'get_an_in_society')
 async def send_society_category(call: CallbackQuery):
-    await call.message.edit_media(reply_markup=society_category(), media=InputMediaPhoto(
-        type='photo', media=FSInputFile(path='Photo/society.jpg', filename='society.jpg'),
-        caption='Наша политика в связях с общественностью строится не на рекламе, а на привлекательности; нам нужно'
-                ' всегда сохранять личную анонимность на уровне средств массовой информации.'))
+    await call.message.edit_media(reply_markup=GetSociety.MARKUP, media=InputMediaPhoto(
+        type=GetSociety.MEDIA_TYPE, media=FSInputFile(path=GetSociety.PHOTO_PATH, filename=GetSociety.PHOTO_NAME),
+        caption=GetSociety.CAPTION))
 

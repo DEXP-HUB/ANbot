@@ -7,7 +7,7 @@ from aiogram.filters import CommandStart
 from aiogram.client.default import DefaultBotProperties
 from filters import CheckState
 from tokens import token_bot
-from templates_messages import Start
+from templates_messages import StartMessage
 from Routers.main_category import main_category
 from Routers.category_participant import category_participant
 from Routers.category_beginner import category_beginner
@@ -24,8 +24,8 @@ dp.include_routers(main_category, category_participant, category_beginner, feed_
 @dp.message(CommandStart(), CheckState())
 async def get_category(message: Message):
     await message.delete()
-    await message.answer_photo(caption=Start.CAPTION, reply_markup=Start.MARKUP,
-                               photo=FSInputFile(filename=Start.PHOTO_NAME, path=Start.PHOTO_PATH))
+    await message.answer_photo(caption=StartMessage.CAPTION, reply_markup=StartMessage.MARKUP,
+                               photo=FSInputFile(filename=StartMessage.PHOTO_NAME, path=StartMessage.PHOTO_PATH))
 
         
 async def main():
