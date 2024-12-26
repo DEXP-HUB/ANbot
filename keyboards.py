@@ -93,19 +93,19 @@ def what_happens_buttons() -> InlineKeyboardMarkup:
 
 def principles_community() -> InlineKeyboardMarkup:
     inline_keyboard_list = [
-        [Button(text='12 шагов Анонимных Наркоманов', callback_data='steps_an1')],
-        [Button(text='12 традиций Анонимных Наркоманов', callback_data='tradition_an1')],
-        [Button(text='12 концепций служения', callback_data='service_concepts1')],
+        [Button(text='12 шагов Анонимных Наркоманов', callback_data='steps_page1')],
+        [Button(text='12 традиций Анонимных Наркоманов', callback_data='tradition_page1')],
+        [Button(text='12 концепций служения', callback_data='concepts_page1')],
         [Button(text='<<Назад', callback_data='get_participant')]
     ]
 
     return InlineKeyboardMarkup(inline_keyboard=inline_keyboard_list)
 
 
-def get_page(call_data: str) -> InlineKeyboardMarkup:
+def get_page(call_page: str) -> InlineKeyboardMarkup:
     inline_keyboard_list = [
-        [Button(text='<<', callback_data=call_data+'1'), 
-         Button(text='>>', callback_data=call_data+'2')],
+        [Button(text='<<', callback_data=call_page+'1'), 
+         Button(text='>>', callback_data=call_page+'2')],
         [Button(text='<<Назад', callback_data='get_community_principles')]
     ]
 
